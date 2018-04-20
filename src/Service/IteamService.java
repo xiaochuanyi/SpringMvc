@@ -7,4 +7,5 @@ import bean.Iteam;
 public interface IteamService {
 	public List<Iteam> select();
 	public Iteam selectbyid(int id);
+	public void update(Iteam i);
 }

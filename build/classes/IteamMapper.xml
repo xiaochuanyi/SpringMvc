@@ -9,4 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectbyid" parameterType="int" resultType="bean.Iteam">
 		select * from iteam where id =#{v}
 	</select>
+	<update id="update" parameterType="bean.Iteam" >
+		update iteam set name=#{name},price=#{price},createtime=#{createtime},detail=#{detail} where id = #{id}
+	</update>
 </mapper>

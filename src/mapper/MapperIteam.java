@@ -6,4 +6,5 @@ import bean.Iteam;
 public interface MapperIteam {
 	public List<Iteam> selectList();
 	public Iteam selectbyid(int id);
+	public void update(Iteam i);
 }
