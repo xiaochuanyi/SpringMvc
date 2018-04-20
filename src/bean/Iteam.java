@@ -8,6 +8,13 @@ public class Iteam {
 	private Float price;
 	private Date createtime;
 	private String detail;
+	private String pic;
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
 	public int getId() {
 		return id;
 	}

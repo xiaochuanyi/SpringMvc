@@ -20,9 +20,10 @@ public class ExceptionResolver implements HandlerExceptionResolver{
 			mav.addObject("error",me.getMsg());
 			mav.setViewName("/WEB-INF/jsp/error.jsp");
 			return mav;
-		}
+		}else{
 		mav.addObject("error","Î´ÖªµÄÒì³£");
 		mav.setViewName("/WEB-INF/jsp/error.jsp");
+		}
 		return mav;
 	}
 

@@ -1,20 +1,24 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import Service.IteamService;
@@ -28,19 +32,13 @@ import exception.MessageException;
 public class ItemController {
 
 	@RequestMapping(value="/item/itemlist.action")
-	public void itemList(Model mav,HttpServletRequest request,HttpServletResponse response,HttpSession session) throws MessageException{
-		if(null == null){
-			throw new MessageException("已知的错误");
-		}
+	public ModelAndView itemList(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws MessageException{
 		IteamService  IteamServiceImpl = new Service.IteamServiceImpl();
 		List<Iteam> list = IteamServiceImpl.select();
-		mav.addAttribute("itemList", list);//itemList是jsp中的，即把list值赋给itemList
-		try {
-			request.getRequestDispatcher("/WEB-INF/jsp/itemList.jsp").forward(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("itemList",list);
+		mav.setViewName("/WEB-INF/jsp/itemList.jsp");
+		return mav;
 	}
 	@RequestMapping(value="/itemEdit.action")
 	public ModelAndView toEdit(Integer id,HttpServletRequest request,HttpServletResponse response,HttpSession session,Model model){
@@ -52,12 +50,19 @@ public class ItemController {
 		return mav;		
 	}
 	@RequestMapping(value="updateitem.action")
-	public ModelAndView update(Iteam iteam){
+	public ModelAndView update(Iteam iteam,MultipartFile pictureFile) throws Exception{//MultipartFile的名字只能为jsp中图片的name
+		//保存图片到 
+		String name = UUID.randomUUID().toString().replaceAll("-", "");
+		//jpg
+		String ext = FilenameUtils.getExtension(pictureFile.getOriginalFilename());		
+		pictureFile.transferTo(new File("D:\\upload\\" + name + "." + ext));
+		iteam.setPic(name+"."+ext);
 		IteamService  IteamServiceImpl = new Service.IteamServiceImpl();
-		iteam.setCreatetime(new Date());
+		//iteam.setCreatetime(new Date());
 		IteamServiceImpl.update(iteam);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/WEB-INF/jsp/itemList.jsp");
+		
 		return mav;
 	}
 	@RequestMapping(value="/delete.action")

@@ -11,5 +11,10 @@
 	<context:component-scan base-package="controller" />
 	<!-- springmvc的异常处理器 -->
 	<bean class ="exception.ExceptionResolver"/>
+	<!-- 上传图片 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传图片的大小 -->
+		<property name="maxUploadSize" value="5000000"></property>
+	</bean>
 </beans>
 
