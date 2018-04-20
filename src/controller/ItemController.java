@@ -28,6 +28,7 @@ public class ItemController {
 
 	@RequestMapping(value="/item/itemlist.action")
 	public void itemList(Model mav,HttpServletRequest request,HttpServletResponse response,HttpSession session){
+		int i = 1/0;
 		IteamService  IteamServiceImpl = new Service.IteamServiceImpl();
 		List<Iteam> list = IteamServiceImpl.select();
 		mav.addAttribute("itemList", list);//itemList是jsp中的，即把list值赋给itemList
