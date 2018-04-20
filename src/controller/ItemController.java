@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import Service.IteamService;
 import bean.Iteam;
+import exception.MessageException;
 
 /*
  * 商品管理
@@ -27,8 +28,10 @@ import bean.Iteam;
 public class ItemController {
 
 	@RequestMapping(value="/item/itemlist.action")
-	public void itemList(Model mav,HttpServletRequest request,HttpServletResponse response,HttpSession session){
-		int i = 1/0;
+	public void itemList(Model mav,HttpServletRequest request,HttpServletResponse response,HttpSession session) throws MessageException{
+		if(null == null){
+			throw new MessageException("已知的错误");
+		}
 		IteamService  IteamServiceImpl = new Service.IteamServiceImpl();
 		List<Iteam> list = IteamServiceImpl.select();
 		mav.addAttribute("itemList", list);//itemList是jsp中的，即把list值赋给itemList

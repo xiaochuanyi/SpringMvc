@@ -15,6 +15,12 @@ public class ExceptionResolver implements HandlerExceptionResolver{
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object arg2,
 			Exception e) {
 		ModelAndView mav = new ModelAndView(); 
+		if(e instanceof MessageException){//判断抛出的异常是否为自己定义的异常
+			MessageException me = (MessageException)e;
+			mav.addObject("error",me.getMsg());
+			mav.setViewName("/WEB-INF/jsp/error.jsp");
+			return mav;
+		}
 		mav.addObject("error","未知的异常");
 		mav.setViewName("/WEB-INF/jsp/error.jsp");
 		return mav;
