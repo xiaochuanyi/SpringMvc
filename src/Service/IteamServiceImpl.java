@@ -17,4 +17,10 @@ public class IteamServiceImpl implements IteamService {
 		List<Iteam> list = u.selectList();
 		return list;
 	}
+	public Iteam selectbyid(int id){
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		MapperIteam u = (MapperIteam) ac.getBean("MapperIteam");
+		Iteam i = u.selectbyid(id);
+		return i;
+	}
 }

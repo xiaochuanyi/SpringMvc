@@ -6,4 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectList" resultType="bean.Iteam">
 		select * from iteam 
 	</select>
+	<select id="selectbyid" parameterType="int" resultType="bean.Iteam">
+		select * from iteam where id =#{v}
+	</select>
 </mapper>
