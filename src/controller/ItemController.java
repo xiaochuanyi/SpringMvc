@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Request;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,4 +73,14 @@ public class ItemController {
 	mav.setViewName("/WEB-INF/jsp/itemList.jsp");
 	return mav;
 	}
+	@RequestMapping(value="/login.action",method=RequestMethod.GET)
+	public String login(){
+		return "/WEB-INF/jsp/login.jsp";
+	}
+	@RequestMapping(value="/login.action",method=RequestMethod.POST)
+	public String login(String username,HttpSession httpsession){
+		httpsession.setAttribute("user_session",username);
+		return "redirect:/item/itemlist.action";
+	}
+	
 }
